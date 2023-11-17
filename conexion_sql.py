@@ -6,7 +6,7 @@ server = 'DESKTOP-N26HD66'
 database = 'mercadop'
 connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes'
 api_key = "673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"
-url = f"https://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?ticket={api_key}"
+url = f"https://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?ticket=673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"
 
 response = requests.get(url)
 
@@ -28,20 +28,28 @@ if response.status_code == 200:
                 codigo = orden.get("Codigo")
                 nombre = orden.get("Nombre")
                 codigo_estado = orden.get("CodigoEstado")
-                print(f"Procesando orden: {codigo}")
+                codigo02 = str(codigo)[:4]
+                print(f"codigo02: {codigo02}")
 
-                fecha_actualizacion = datetime.now().strftime("%Y-%m-%d")
-                hora_actualizacion = datetime.now().strftime("%H:%M:%S")
+                if codigo02 == "3178":
+                    print(f"Procesando orden: {codigo}")
+                    print(f"Nombre: {nombre}")
+                    print(f"CodigoEstado: {codigo_estado}")
 
-                # Paso 4: Insertar los nuevos registros en la tabla
-                if codigo and nombre and codigo_estado is not None:
-                    sql = """INSERT INTO apioc01 
-                             (codigo, nombre, codigoestado, condreg, fecha_actualizacion, hora_actualizacion) 
-                             VALUES (?, ?, ?, 0, ?, ?)"""
-                    cursor.execute(sql, codigo, nombre, codigo_estado, fecha_actualizacion, hora_actualizacion)
-                    print(f"Orden {codigo} insertada.")
+                    fecha_actualizacion = datetime.now().strftime("%Y-%m-%d")
+                    hora_actualizacion = datetime.now().strftime("%H:%M:%S")
 
-            # Paso 5: Confirmar los cambios con commit
+                    # Paso 4: Insertar los nuevos registros en la tabla
+                    if codigo and nombre and codigo_estado is not None:
+                        sql = """INSERT INTO apioc01 
+                                    (codigo, nombre, codigoestado, condreg, fecha_actualizacion, hora_actualizacion) 
+                                    VALUES (?, ?, ?, 0, ?, ?)"""
+                        cursor.execute(sql, (codigo, nombre, codigo_estado, fecha_actualizacion, hora_actualizacion))
+                        print(f"Orden {codigo} insertada.")
+
+                    else:
+                        print({codigo})
+
             conn.commit()
             print("Cambios guardados en la base de datos.")
 

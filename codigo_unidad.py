@@ -18,12 +18,12 @@ while ocom:
     codigo=(ocom[0])
     nombre=(ocom[1])
     
-   #print(codigo)
-   #print(nombre)
+    #print(codigo)
+    #print(nombre)
     
     ocom = cursor.fetchone()
     
-    url = f"https://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?codigo=3178-3680-SE23&ticket=673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"
+    url = f"https://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?codigo={codigo}&ticket=673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"
 
 
     response = requests.get(url)
@@ -133,24 +133,87 @@ while ocom:
             if codigounidad == '4099':
                 # Procesa e imprime la orden si CodigoUnidad es igual a "4099"
                 # Imprimir los detalles de la orden
-                print(f"Código Organismo: {codigoorganismo}")
-                print(f" Nombre Organismo: {nombreorganismo}") 
+                print(f"Código: {codigo01}")
+                print(f"Nombre: {nombre01}") 
+                print(f"CodigoEstado: {codigoestado}")
+                print(f"Estado: {estado}")
+                print(f"CodigoLicitacion: {codigolicitacion}")
+                print(f"Descripcion: {descripcion}")
+                print(f"CodigoTipo: {codigotipo}")
+                print(f"Tipo: {tipo}")
+                print(f"TipoMoneda: {tipomoneda}")
+                print(f"CodigoEstadoProveedor: {codigoestadoproveedor}")
+                print(f"EstadoProveedor: {estadoproveedor}")
+                print(f"FechaCreacion: {fechacreacion}")
+                print(f"FechaEnvio: {fechaenvio}")
+                print(f"FechaAceptacion: {fechaaceptacion}")
+                print(f"FechaCancelacion: {fechacancelacion}")
+                print(f"FechaUltimaModificacion: {fechaultimamodificacion}")
+                print(f"PromedioCalificacion: {promediocalificacion}")
+                print(f"CantidadEvaluacion: {cantidadevaluacion}")
+                print(f"Descuentos: {descuentos}")
+                print(f"Cargos: {cargos}")
+                print(f"TotalNeto: {totalneto}")
+                print(f"PorcentajeIva: {porcentajeiva}")
+                print(f"Impuestos: {impuestos}")
+                print(f"Total: {total}")
+                print(f"Financiamiento: {financiamiento}")
+                print(f"Pais: {pais}")
+                print(f"TipoDespacho: {tipodespacho}")
+                print(f"FormaPago: {formapago}")
+                print(f"CodigoOrganismo: {codigoorganismo}")
+                print(f"NombreOrganismo: {nombreorganismo}")
                 print(f"RutUnidad: {rutunidad}")
                 print(f"CodigoUnidad: {codigounidad}")
-                print(f"Nombre Unidad: {nombreunidad}, Actividad: {actividad}, Dirección Unidad: {direccionunidad}")
-                print(f"Comuna Unidad: {comunaunidad}, Región Unidad: {regionunidad}, País: {pais_u}")
-                print(f"Nombre Contacto: {nombrecontacto}, Cargo Contacto: {cargocontacto}")
-                print(f"Fono Contacto: {fonocontacto}, Mail Contacto: {mailcontacto}")
-                print(f"codigo proveedor: {codigo}")
-                print(f"nombre proveedor: {nombre}")
+                print(f"NombreUnidad: {nombreunidad}")
                 print(f"Actividad: {actividad}")
-                print(f"CodigoSucursal: {codigosucursal} ")
+                print(f"DireccionUnidad: {direccionunidad}")
+                print(f"ComunaUnidad: {comunaunidad}")
+                print(f"RegionUnidad: {regionunidad}")
+                print(f"Pais: {pais_u}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
+                print(f"Codigo: {codigo}")
+                print(f"Nombre: {nombre}")
+                print(f"Actividad: {actividad}")
+                print(f"CodigoSucursal: {codigosucursal}")
                 print(f"NombreSucursal: {nombresucursal}")
                 print(f"RutSucursal: {rutsucursal}")
                 print(f"Direccion: {direccion}")
-                print("----------------------------------------------------")
+                print(f"Comuna: {comuna}")
+                print(f"Region: {region}")
+                print(f"Pais: {pais_s}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
+                print(f"Cantidad: {cantidad}")
+                print(f"Correlativo: {correlativo}")
+                print(f"CodigoCategoria: {codigocategoria}")
+                print(f"Categoria: {categoria}")
+                print(f"CodigoProducto: {codigoproducto}")
+                print(f"EspecificacionComprador: {especificacioncomprador}")
+                print(f"EspecificacionProveedor: {especificacionproveedor}")
+                print(f"Cantidad: {cantidad}")
+                print(f"Moneda: {moneda}")
+                print(f"PrecioNeto: {precioneto}")
+                print(f"TotalCargos: {totalcargos}")
+                print("TotalDescuentos: {totaldescuentos}")
+                print(f"TotalImpuestos: {totalimpuestos}")
+                print(f"Total: {total}")
+                
 
-                 
+            
+
+
+            
+
+        
+
+    
+
        
 
             

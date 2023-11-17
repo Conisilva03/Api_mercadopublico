@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Fechas órdenes de compra - Mercado público</h1>
+    <br>
+    <br>
+    <form method="POST" action="/">
+        <label for="dia">Día:</label>
+        <select id="dia" name="dia" required>
+            <option value="01">1</option>
+            <option value="02">2</option>
+            <option value="03">3</option>
+            <option value="04">4</option>
+            <option value="05">5</option>
+            <option value="06">6</option>
+            <option value="07">7</option>
+            <option value="08">8</option>
+            <option value="09">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+
+        <label for="mes">Mes:</label>
+        <select id="mes" name="mes" required>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+
+        <label for="anio">Año:</label>
+        <select id="anio" name="anio" required>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+        </select>
+
+        <input type="submit" value="Consultar">
+    </form>
+</body>
+
+</html>
