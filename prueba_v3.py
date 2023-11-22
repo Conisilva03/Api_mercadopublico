@@ -26,7 +26,7 @@ try:
         # Realizar acciones con los datos obtenidos
         url = f"https://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?codigo={codigo}&ticket=673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"
         response = requests.get(url)
-        print(response.status_code)
+        print(f"Estado de respuesta: {response.status_code}")
         time.sleep(5)
         if response.status_code == 200:
             data = response.json()
