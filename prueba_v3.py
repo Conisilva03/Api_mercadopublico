@@ -1,6 +1,8 @@
 import pyodbc
 import requests
 import time
+import json
+
 
 # Datos de conexión a la base de datos
 server = 'DESKTOP-N26HD66'
@@ -14,7 +16,7 @@ cursor = conn.cursor()
 try:
     # Consulta SQL
     cursor.execute("SELECT CODIGO, NOMBRE, CODIGOESTADO, CONDREG, FECHA_ACTUALIZACION, HORA_ACTUALIZACION FROM apioc01;")
-     
+    
     # Obtener todos los registros
     ocoms = cursor.fetchall()
     
@@ -31,10 +33,15 @@ try:
         if response.status_code == 200:
             data = response.json()
 
-            lista_ordenes = data.get("Listado", [])
+            # Acceder a los datos de nivel superior del JSON
             
+            fecha_creacion = data.get("FechaCreacion")
+            
+
+            lista_ordenes = data.get("Listado", [])
+
             for orden in lista_ordenes:
-                # Acceder a los detalles del comprador
+                # Acceder a los detalles de cada orden
                 comprador = orden.get("Comprador", {})
                 codigo = orden.get("Codigo")
                 nombre = orden.get("Nombre")
@@ -48,7 +55,7 @@ try:
                 codigoestadoproveedor = orden.get("CodigoEstadoProveedor")
                 estadoproveedor = orden.get("EstadoProveedor")
 
-                # Acceder a las fechas anidadas
+                # Acceder a las fechas anidadas de cada orden
                 fechas = orden.get("Fechas", {})
                 fechacreacion = fechas.get("FechaCreacion")
                 fechaenvio = fechas.get("FechaEnvio")
@@ -56,6 +63,92 @@ try:
                 fechacancelacion = fechas.get("FechaCancelacion")
                 fechaultimamodificacion = fechas.get("FechaUltimaModificacion")
 
+                # Aceder a los Items
+                tieneitems = orden.get("TieneItems")
+                promediocalificacion = orden.get("PromedioCalificacion")
+                cantidadevaluacion = orden.get("CantidadEvaluacion")
+                descuentos = orden.get("Descuentos")
+                cargos = orden.get("Cargos")
+                totalneto = orden.get("TotalNeto")
+                porcentajeiva = orden.get("PorcentajeIva")
+                impuestos = orden.get("Impuestos")
+                total = orden.get("Total")
+                financiamiento = orden.get("Financiamiento")
+                pais = orden.get("Pais")
+                tipodespacho = orden.get("TipoDespacho")
+                formapago = orden.get("FormaPago")
+
+                # Acceder a los detalles del comprador
+                comprador = orden.get("Comprador", {})
+                codigoorganismo = comprador.get("CodigoOrganismo")
+                nombreorganismo = comprador.get("NombreOrganismo")
+                rutunidad = comprador.get("RutUnidad")
+                codigounidad = comprador.get("CodigoUnidad")
+                nombreunidad = comprador.get("NombreUnidad")
+                actividad = comprador.get("Actividad")
+                direccionunidad = comprador.get("DireccionUnidad")
+                comunaunidad = comprador.get("ComunaUnidad")
+                regionunidad = comprador.get("RegionUnidad")
+                pais_u = comprador.get("Pais")
+                nombrecontacto = comprador.get("NombreContacto")
+                cargocontacto = comprador.get("CargoContacto")
+                fonocontacto = comprador.get("FonoContacto")
+                mailcontacto = comprador.get("MailContacto")
+                
+                # Acceder a los detalles del proveedor
+                proveedor = orden.get("Proveedor", {})
+                codigo = proveedor.get("Codigo")
+                nombre = proveedor.get("Nombre")
+                actividad = proveedor.get("Actividad")
+                codigosucursal = proveedor.get("CodigoSucursal")
+                nombresucursal = proveedor.get("NombreSucursal")
+                rutsucursal = proveedor.get("RutSucursal")
+                direccion = proveedor.get("Direccion")
+                comuna = proveedor.get("Comuna")
+                region = proveedor.get("Region")
+                pais_s = proveedor.get("Pais")
+                nombrecontacto = proveedor.get("NombreContacto")
+                cargocontacto = proveedor.get("CargoContacto")
+                fonocontacto = proveedor.get("FonoContacto")
+                mailcontacto = proveedor.get("MailContacto")
+
+                # Acceder a los detalles de Items
+                items = orden.get("Items", {})
+                listado = items.get("Listado", [])  # 'Listado' es una lista de items
+
+            # Iterar a través de cada item en 'Listado'
+            
+            for items in listado:
+                cantidad = items.get("Cantidad")
+                correlativo = items.get("Correlativo")
+                codigocategoria = items.get("CodigoCategoria")
+                categoria = items.get("Categoria")
+                codigoproducto = items.get("CodigoProducto")
+                especificacioncomprador = items.get("EspecificacionComprador")
+                especificacionproveedor = items.get("EspecificacionProveedor")
+                cantidad = items.get("Cantidad")
+                moneda = items.get("Moneda")
+                precioneto = items.get("PrecioNeto")
+                totalcargos = items.get("TotalCargos")
+                totaldescuentos = items.get("TotalDescuentos")
+                totalimpuestos = items.get("TotalImpuestos")
+                total = items.get("Total")
+                
+                
+                fecha_actualizacion = datetime.now().strftime("%Y-%m-%d")
+                hora_actualizacion = datetime.now().strftime("%H:%M:%S")
+                
+                
+                sql = """INSERT INTO orden_compra
+                (fechacreacion, codigo, nombre, codigoestado, codigolicitacion, descripcion, codigotipo, tipo, tipomoneda, codigoestadoproveedor, estadoproveedor, fechacreacionprov, fechaenvio, fechaaceptacion, fechacancelacion, fechaultimamodificacion, tieneitems, promediocalificacion, cantidadevaluacion, descuentos, cargos, totalneto, porcentajeiva, impuestos, total, financiamiento, pais, tipodespacho, formadepago, codigoorganismo, nombreorganismo, rutunidad, codigounidad, nombreunidad, actividad, direccionunidad, comunaunidad, regionunidad, pais_u, nombrecontacto, cargocontacto, fonocontacto, emailcontacto, codigoprov, nombreprov, actividadprov, codigosucursalprov, nombresucursalprov, rutsucursalprov, direccionsucursalprov, comunasucursalprov, regionsucursalprov, paissucursalprov, nombrecontactosucprov, cargocontactosucprov, telefonocontactosucprov, emailcontactosucprov, cantidaditems, correlativoitems, codigocategoriaitems, categoriaitem, codigoproducitem, especificcompitem, especificprovitem, cantidaditem, monedaitem, precionetoitem, totalcargositem, totaldescuentositem, totalimpuestositem, totalitem, condereg, fecha_actualizacion, hora_actualizacion)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)"""
+
+                cursor.execute(sql, (fechacreacion, codigo, nombre, codigoestado, codigolicitacion, descripcion, codigotipo, tipo, tipomoneda, codigoestadoproveedor, estadoproveedor, fechacreacionprov, fechaenvio, fechaaceptacion, fechacancelacion, fechaultimamodificacion, tieneitems, promediocalificacion, cantidadevaluacion, descuentos, cargos, totalneto, porcentajeiva, impuestos, total, financiamiento, pais, tipodespacho, formadepago, codigoorganismo, nombreorganismo, rutunidad, codigounidad, nombreunidad, actividad, direccionunidad, comunaunidad, regionunidad, pais_u, nombrecontacto, cargocontacto, fonocontacto, emailcontacto, codigoprov, nombreprov, actividadprov, codigosucursalprov, nombresucursalprov, rutsucursalprov, direccionsucursalprov, comunasucursalprov, regionsucursalprov, paissucursalprov, nombrecontactosucprov, cargocontactosucprov, telefonocontactosucprov, emailcontactosucprov, cantidaditems, correlativoitems, codigocategoriaitems, categoriaitem, codigoproducitem, especificcompitem, especificprovitem, cantidaditem, monedaitem, precionetoitem, totalcargositem, totaldescuentositem, totalimpuestositem, totalitem, condereg, fecha_actualizacion, hora_actualizacion))
+
+
+                
+                print(f"FechaCreacion: {fecha_creacion}")
+                
                 print(f"Código: {codigo}")
                 print(f"Nombre: {nombre}")
                 print(f"CódigoEstado: {codigoestado}")
@@ -65,6 +158,8 @@ try:
                 print(f"CodigoTipo: {codigotipo}")
                 print(f"Tipo: {tipo}")
                 print(f"TipoMoneda: {tipomoneda}")
+
+                # Acceder a prints de Proveedor
                 print(f"CodigoEstadoProveedor: {codigoestadoproveedor}")
                 print(f"EstadoProveedor: {estadoproveedor}")
                 print(f"FechaCreacion: {fechacreacion}")
@@ -72,10 +167,77 @@ try:
                 print(f"FechaAceptacion: {fechaaceptacion}")
                 print(f"FechaCancelacion: {fechacancelacion}")
                 print(f"FechaUltimaModificacion: {fechaultimamodificacion}")
-        
+
+                # Aceder a prints de Items
+                print(f"PromedioCalificacion: {promediocalificacion}")
+                print(f"CantidadEvaluacion: {cantidadevaluacion}")
+                print(f"Descuentos: {descuentos}")
+                print(f"Cargos: {cargos}")
+                print(f"TotalNeto: {totalneto}")
+                print(f"PorcentajeIva: {porcentajeiva}")
+                print(f"Impuestos: {impuestos}")
+                print(f"Total: {total}")
+                print(f"Financiamiento: {financiamiento}")
+                print(f"Pais: {pais}")
+                print(f"TipoDespacho: {tipodespacho}")
+                print(f"FormaPago: {formapago}")
+
+                # Acceder a los detalles del comprador
+                print(f"CodigoOrganismo: {codigoorganismo}")
+                print(f"NombreOrganismo: {nombreorganismo}")
+                print(f"RutUnidad: {rutunidad}")
+                print(f"CodigoUnidad: {codigounidad}")
+                print(f"NombreUnidad: {nombreunidad}")
+                print(f"Actividad: {actividad}")
+                print(f"DireccionUnidad: {direccionunidad}")
+                print(f"ComunaUnidad: {comunaunidad}")
+                print(f"RegionUnidad: {regionunidad}")
+                print(f"Pais: {pais_u}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
+                
+            
+                # Acceder a los detalles del proveedor
+                print(f"Codigo: {codigo}")
+                print(f"Nombre: {nombre}")
+                print(f"Actividad: {actividad}")
+                print(f"CodigoSucursal: {codigosucursal}")
+                print(f"NombreSucursal: {nombresucursal}")
+                print(f"RutSucursal: {rutsucursal}")
+                print(f"Direccion: {direccion}")
+                print(f"Comuna: {comuna}")
+                print(f"Region: {region}")
+                print(f"Pais: {pais}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
+
+
+                # Acceder a los detalles de item en 'Listado'
+
+                print(f"Cantidad: {cantidad}")
+                print(f"Correlativo: {correlativo}")
+                print(f"CodigoCategoria: {codigocategoria}")
+                print(f"Categoria: {categoria}")
+                print(f"CodigoProducto: {codigoproducto}")
+                print(f"EspecificacionComprador: {especificacioncomprador}")
+                print(f"EspecificacionProveedor: {especificacionproveedor}")
+                print(f"Cantidad: {cantidad}")
+                print(f"Moneda: {moneda}")
+                print(f"PrecioNeto: {precioneto}")
+                print(f"TotalCargos: {totalcargos}")
+                print("TotalDescuentos: {totaldescuentos}")
+                print(f"TotalImpuestos: {totalimpuestos}")
+                print(f"Total: {total}")
+
+
+
 except Exception as e:
     print(f"Se produjo un error: {e}")
-   
+
 # Cerrar la conexión
 cursor.close()
 conn.close()

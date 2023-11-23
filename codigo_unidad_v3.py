@@ -78,7 +78,7 @@ try:
                 tipodespacho = orden.get("TipoDespacho")
                 formapago = orden.get("FormaPago")
 
-                 # Acceder a los detalles del comprador
+                # Acceder a los detalles del comprador
                 comprador = orden.get("Comprador", {})
                 codigoorganismo = comprador.get("CodigoOrganismo")
                 nombreorganismo = comprador.get("NombreOrganismo")
@@ -94,8 +94,25 @@ try:
                 cargocontacto = comprador.get("CargoContacto")
                 fonocontacto = comprador.get("FonoContacto")
                 mailcontacto = comprador.get("MailContacto")
+                
+                # Acceder a los detalles del proveedor
+                proveedor = orden.get("Proveedor", {})
+                codigo = proveedor.get("Codigo")
+                nombre = proveedor.get("Nombre")
+                actividad = proveedor.get("Actividad")
+                codigosucursal = proveedor.get("CodigoSucursal")
+                nombresucursal = proveedor.get("NombreSucursal")
+                rutsucursal = proveedor.get("RutSucursal")
+                direccion = proveedor.get("Direccion")
+                comuna = proveedor.get("Comuna")
+                region = proveedor.get("Region")
+                pais_s = proveedor.get("Pais")
+                nombrecontacto = proveedor.get("NombreContacto")
+                cargocontacto = proveedor.get("CargoContacto")
+                fonocontacto = proveedor.get("FonoContacto")
+                mailcontacto = proveedor.get("MailContacto")
 
-                 # Acceder a los detalles de Items
+                # Acceder a los detalles de Items
                 items = orden.get("Items", {})
                 listado = items.get("Listado", [])  # 'Listado' es una lista de items
 
@@ -122,7 +139,6 @@ try:
                 print(f"FechaCreacion: {fecha_creacion}")
                 print(f"Version: {version}")
 
-               
                 print(f"Código: {codigo}")
                 print(f"Nombre: {nombre}")
                 print(f"CódigoEstado: {codigoestado}")
@@ -171,9 +187,24 @@ try:
                 print(f"CargoContacto: {cargocontacto}")
                 print(f"FonoContacto: {fonocontacto}")
                 print(f"MailContacto: {mailcontacto}")
+                
+                # Acceder a los detalles del proveedor
+                print(f"Codigo: {codigo}")
+                print(f"Nombre: {nombre}")
+                print(f"Actividad: {actividad}")
+                print(f"CodigoSucursal: {codigosucursal}")
+                print(f"NombreSucursal: {nombresucursal}")
+                print(f"RutSucursal: {rutsucursal}")
+                print(f"Direccion: {direccion}")
+                print(f"Comuna: {comuna}")
+                print(f"Region: {region}")
+                print(f"Pais: {pais}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
 
                 # Acceder a los detalles de item en 'Listado'
-
                 print(f"Cantidad: {cantidad}")
                 print(f"Correlativo: {correlativo}")
                 print(f"CodigoCategoria: {codigocategoria}")
