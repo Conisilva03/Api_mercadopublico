@@ -13,7 +13,7 @@ response = requests.get(url)
 if response.status_code == 200:
     data = response.json()
     lista_ordenes = data.get("Listado", [])
-    print(f"Se encontraron {len(lista_ordenes)} órdenes de compra.")
+    print(f"Se encontraron {len(lista_ordenes)} órdenes de compra, vamos a filtrar")
 
     try:
         with pyodbc.connect(connection_string) as conn:
@@ -29,7 +29,7 @@ if response.status_code == 200:
                 nombre = orden.get("Nombre")
                 codigo_estado = orden.get("CodigoEstado")
                 codigo02 = str(codigo)[:4]
-                print(f"codigo02: {codigo02}")
+                #print(f"codigo02: {codigo02}")
 
                 if codigo02 == "3178":
                     print(f"Procesando orden: {codigo}")

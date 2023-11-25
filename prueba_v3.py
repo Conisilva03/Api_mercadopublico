@@ -22,7 +22,7 @@ def parse_fecha(fecha_str):
         return fecha
     except ValueError:
         #print("Formato de fecha incorrecto. Proporcione el formato correcto.")
-        return None  # Opcional: Manejar el error como mejor convenga en tu caso
+        return None 
 
 
 
@@ -93,7 +93,7 @@ try:
                 fecha_sinmicrosegundos = fechacreacion_str[:posicionpunto] + 'Z'
 
                 fechacreacion = datetime.strptime(fecha_sinmicrosegundos, "%Y-%m-%dT%H:%M:%SZ")
- 
+
                 fechaenvio = parse_fecha(fechas.get("FechaEnvio"))
                 fechaaceptacion = parse_fecha(fechas.get("FechaAceptacion"))
                 fechacancelacion = parse_fecha(fechas.get("FechaCancelacion"))
@@ -152,6 +152,7 @@ try:
                 items = orden.get("Items", {})
                 
                 cantidad02 = items.get("Cantidad")
+                cantidad02 = int(cantidad02)
                 
                 listado = items.get("Listado", [])  # 'Listado' es una lista de items
 
@@ -165,7 +166,7 @@ try:
                 codigoproducto = items.get("CodigoProducto")
                 especificacioncomprador = items.get("EspecificacionComprador")
                 especificacionproveedor = items.get("EspecificacionProveedor")
-                cantidad03 = items.get("Cantidad")
+                cantidad03 = int(items.get("Cantidad"))
                 moneda = items.get("Moneda")
                 precioneto = items.get("PrecioNeto")
                 totalcargos = items.get("TotalCargos")
@@ -216,14 +217,74 @@ try:
 #                 print(f"fechaultimamodificacion {fechaultimamodificacion}")
 #                 print(type(promediocalificacion))
 #                 print((promediocalificacion))
+
+                # print(type(cantidadevaluacion))
+                # print((cantidadevaluacion))
+                # print(type(descuentos))
+                # print((descuentos))
+                # print(type(cargos))
+                # print((cargos))
+                # print(type(totalneto))
+                # print((totalneto))
+                # print(type(porcentajeiva))
+                # print((porcentajeiva))
+                # print(type(impuestos))
+                # print((impuestos))
+                # print(type(total))
+                # print((total))
+                # print(type(financiamiento))
+                # print((financiamiento))
+                # print(type(pais))
+                # print((pais))
+                # print(type(tipodespacho))
+                # print((tipodespacho))
+                # print(type(formapago))
+                # print((formapago))
+                # print(type(codigoorganismo))
+                # print((codigoorganismo))
+                # print(type(nombreorganismo))
+                # print((nombreorganismo))
+                # print(type(rutunidad))
+                # print((rutunidad))
                 
-                #cursor.execute(sql, (fecha_creacion, codigo, nombre, codigoestado, codigolicitacion, descripcion, codigotipo, tipo, tipomoneda, codigoestadoproveedor, estadoproveedor, fechacreacion, fechaenvio, fechaaceptacion, fechacancelacion, fechaultimamodificacion, tieneitems, promediocalificacion, cantidadevaluacion, descuentos, cargos, totalneto, porcentajeiva, impuestos, total, financiamiento, pais, tipodespacho, formapago, codigoorganismo, nombreorganismo, rutunidad, codigounidad, nombreunidad, actividad, direccionunidad, comunaunidad, regionunidad, pais_u, nombrecontacto, cargocontacto, fonocontacto, mailcontacto, codigo02, nombre02, actividad02, codigosucursal, nombresucursal, rutsucursal, direccion, comuna, region, pais_s, nombrecontacto, cargocontacto, fonocontacto, mailcontacto, cantidad02, correlativo, codigocategoria, categoria, codigoproducto, especificacioncomprador, especificacionproveedor, cantidad03, moneda, precioneto, totalcargos, totaldescuentos, totalimpuestos, total, fecha_actualizacion, hora_actualizacion))
+                # print(type(codigounidad))
+                # print((codigounidad))
+                # print(type(nombreunidad))
+                # print((nombreunidad))
+                # print(type(actividad))
+                # print((actividad))
+                # print(type(direccionunidad))
+                # print((direccionunidad))
+                # print(type(comunaunidad))
+                # print((comunaunidad))
+                # print(type(regionunidad))
+                # # print((regionunidad))
+                # print(type(cantidad03))
+                # print(type(int(cantidad03)))
+                # print((cantidad03))
+                # print(int(cantidad03))
+                # # print(type(listado))
+                # # print((listado))
+                # # print("probando")
+                # # print(type(codigoestado))
+                # # print((codigoestado))
+                # print("quiero saber el correlativo")
+                # print(type(correlativo))
+                # print((correlativo))
+                # print(type(precioneto))
+                # print((precioneto))
+                
+                
+                
+
+
+                
                 try:
                     cursor.execute(sql, (fecha_creacion, codigo, nombre, codigoestado, codigolicitacion, descripcion, codigotipo, tipo, tipomoneda, codigoestadoproveedor, estadoproveedor, fechacreacion, fechaenvio, fechaaceptacion, fechacancelacion, fechaultimamodificacion, tieneitems, promediocalificacion, cantidadevaluacion, descuentos, cargos, totalneto, porcentajeiva, impuestos, total, financiamiento, pais, tipodespacho, formapago, codigoorganismo, nombreorganismo, rutunidad, codigounidad, nombreunidad, actividad, direccionunidad, comunaunidad, regionunidad, pais_u, nombrecontacto, cargocontacto, fonocontacto, mailcontacto, codigo02, nombre02, actividad02, codigosucursal, nombresucursal, rutsucursal, direccion, comuna, region, pais_s, nombrecontacto, cargocontacto, fonocontacto, mailcontacto, cantidad02, correlativo, codigocategoria, categoria, codigoproducto, especificacioncomprador, especificacionproveedor, cantidad03, moneda, precioneto, totalcargos, totaldescuentos, totalimpuestos, total, fecha_actualizacion, hora_actualizacion))
 
-                    conn.commit()  # Assuming you're using a connection object
+                    conn.commit()  
 
-                    # Query executed successfully
+                    
                     print("Query executed successfully")
 
                 except Exception as e:
@@ -232,91 +293,91 @@ try:
                     print("Query execution failed:", str(e))
                 print("post")
                 
-#                 print(f"FechaCreacion: {fecha_creacion}")
+                print(f"FechaCreacion: {fecha_creacion}")
                 
-#                 print(f"Código: {codigo}")
-#                 print(f"Nombre: {nombre}")
-#                 print(f"CódigoEstado: {codigoestado}")
-#                 print(f"Estado: {estado}")
-#                 print(f"CodigoLicitacion: {codigolicitacion}")
-#                 print(f"Descripcion: {descripcion}")
-#                 print(f"CodigoTipo: {codigotipo}")
-#                 print(f"Tipo: {tipo}")
-#                 print(f"TipoMoneda: {tipomoneda}")
+                print(f"Código: {codigo}")
+                print(f"Nombre: {nombre}")
+                print(f"CódigoEstado: {codigoestado}")
+                print(f"Estado: {estado}")
+                print(f"CodigoLicitacion: {codigolicitacion}")
+                print(f"Descripcion: {descripcion}")
+                print(f"CodigoTipo: {codigotipo}")
+                print(f"Tipo: {tipo}")
+                print(f"TipoMoneda: {tipomoneda}")
 
-#                 # Acceder a prints de Proveedor
-#                 print(f"CodigoEstadoProveedor: {codigoestadoproveedor}")
-#                 print(f"EstadoProveedor: {estadoproveedor}")
-#                 print(f"FechaCreacion: {fechacreacion}")
-#                 print(f"FechaEnvio: {fechaenvio}")
-#                 print(f"FechaAceptacion: {fechaaceptacion}")
-#                 print(f"FechaCancelacion: {fechacancelacion}")
-#                 print(f"FechaUltimaModificacion: {fechaultimamodificacion}")
+                # Acceder a prints de Proveedor
+                print(f"CodigoEstadoProveedor: {codigoestadoproveedor}")
+                print(f"EstadoProveedor: {estadoproveedor}")
+                print(f"FechaCreacion: {fechacreacion}")
+                print(f"FechaEnvio: {fechaenvio}")
+                print(f"FechaAceptacion: {fechaaceptacion}")
+                print(f"FechaCancelacion: {fechacancelacion}")
+                print(f"FechaUltimaModificacion: {fechaultimamodificacion}")
 
-#                 # Aceder a prints de Items
-#                 print(f"PromedioCalificacion: {promediocalificacion}")
-#                 print(f"CantidadEvaluacion: {cantidadevaluacion}")
-#                 print(f"Descuentos: {descuentos}")
-#                 print(f"Cargos: {cargos}")
-#                 print(f"TotalNeto: {totalneto}")
-#                 print(f"PorcentajeIva: {porcentajeiva}")
-#                 print(f"Impuestos: {impuestos}")
-#                 print(f"Total: {total}")
-#                 print(f"Financiamiento: {financiamiento}")
-#                 print(f"Pais: {pais}")
-#                 print(f"TipoDespacho: {tipodespacho}")
-#                 print(f"FormaPago: {formapago}")
+                # Aceder a prints de Items
+                print(f"PromedioCalificacion: {promediocalificacion}")
+                print(f"CantidadEvaluacion: {cantidadevaluacion}")
+                print(f"Descuentos: {descuentos}")
+                print(f"Cargos: {cargos}")
+                print(f"TotalNeto: {totalneto}")
+                print(f"PorcentajeIva: {porcentajeiva}")
+                print(f"Impuestos: {impuestos}")
+                print(f"Total: {total}")
+                print(f"Financiamiento: {financiamiento}")
+                print(f"Pais: {pais}")
+                print(f"TipoDespacho: {tipodespacho}")
+                print(f"FormaPago: {formapago}")
 
-#                 # Acceder a los detalles del comprador
-#                 print(f"CodigoOrganismo: {codigoorganismo}")
-#                 print(f"NombreOrganismo: {nombreorganismo}")
-#                 print(f"RutUnidad: {rutunidad}")
-#                 print(f"CodigoUnidad: {codigounidad}")
-#                 print(f"NombreUnidad: {nombreunidad}")
-#                 print(f"Actividad: {actividad}")
-#                 print(f"DireccionUnidad: {direccionunidad}")
-#                 print(f"ComunaUnidad: {comunaunidad}")
-#                 print(f"RegionUnidad: {regionunidad}")
-#                 print(f"Pais: {pais_u}")
-#                 print(f"NombreContacto: {nombrecontacto}")
-#                 print(f"CargoContacto: {cargocontacto}")
-#                 print(f"FonoContacto: {fonocontacto}")
-#                 print(f"MailContacto: {mailcontacto}")
+                # Acceder a los detalles del comprador
+                print(f"CodigoOrganismo: {codigoorganismo}")
+                print(f"NombreOrganismo: {nombreorganismo}")
+                print(f"RutUnidad: {rutunidad}")
+                print(f"CodigoUnidad: {codigounidad}")
+                print(f"NombreUnidad: {nombreunidad}")
+                print(f"Actividad: {actividad}")
+                print(f"DireccionUnidad: {direccionunidad}")
+                print(f"ComunaUnidad: {comunaunidad}")
+                print(f"RegionUnidad: {regionunidad}")
+                print(f"Pais: {pais_u}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
                 
             
-#                 # Acceder a los detalles del proveedor
-#                 print(f"Codigo: {codigo02}")
-#                 print(f"Nombre: {nombre02}")
-#                 print(f"Actividad: {actividad02}")
-#                 print(f"CodigoSucursal: {codigosucursal}")
-#                 print(f"NombreSucursal: {nombresucursal}")
-#                 print(f"RutSucursal: {rutsucursal}")
-#                 print(f"Direccion: {direccion}")
-#                 print(f"Comuna: {comuna}")
-#                 print(f"Region: {region}")
-#                 print(f"Pais: {pais}")
-#                 print(f"NombreContacto: {nombrecontacto}")
-#                 print(f"CargoContacto: {cargocontacto}")
-#                 print(f"FonoContacto: {fonocontacto}")
-#                 print(f"MailContacto: {mailcontacto}")
+                # Acceder a los detalles del proveedor
+                print(f"Codigo: {codigo02}")
+                print(f"Nombre: {nombre02}")
+                print(f"Actividad: {actividad02}")
+                print(f"CodigoSucursal: {codigosucursal}")
+                print(f"NombreSucursal: {nombresucursal}")
+                print(f"RutSucursal: {rutsucursal}")
+                print(f"Direccion: {direccion}")
+                print(f"Comuna: {comuna}")
+                print(f"Region: {region}")
+                print(f"Pais: {pais}")
+                print(f"NombreContacto: {nombrecontacto}")
+                print(f"CargoContacto: {cargocontacto}")
+                print(f"FonoContacto: {fonocontacto}")
+                print(f"MailContacto: {mailcontacto}")
 
 
-#                 # Acceder a los detalles de item en 'Listado'
+                # Acceder a los detalles de item en 'Listado'
 
-#                 print(f"Cantidad: {cantidad02}")
-#                 print(f"Correlativo: {correlativo}")
-#                 print(f"CodigoCategoria: {codigocategoria}")
-#                 print(f"Categoria: {categoria}")
-#                 print(f"CodigoProducto: {codigoproducto}")
-#                 print(f"EspecificacionComprador: {especificacioncomprador}")
-#                 print(f"EspecificacionProveedor: {especificacionproveedor}")
-#                 print(f"Cantidad: {cantidad03}")
-#                 print(f"Moneda: {moneda}")
-#                 print(f"PrecioNeto: {precioneto}")
-#                 print(f"TotalCargos: {totalcargos}")
-#                 print(f"TotalDescuentos: {totaldescuentos}")
-#                 print(f"TotalImpuestos: {totalimpuestos}")
-#                 print(f"Total: {total}")
+                print(f"Cantidad: {cantidad02}")
+                print(f"Correlativo: {correlativo}")
+                print(f"CodigoCategoria: {codigocategoria}")
+                print(f"Categoria: {categoria}")
+                print(f"CodigoProducto: {codigoproducto}")
+                print(f"EspecificacionComprador: {especificacioncomprador}")
+                print(f"EspecificacionProveedor: {especificacionproveedor}")
+                print(f"Cantidad: {cantidad03}")
+                print(f"Moneda: {moneda}")
+                print(f"PrecioNeto: {precioneto}")
+                print(f"TotalCargos: {totalcargos}")
+                print(f"TotalDescuentos: {totaldescuentos}")
+                print(f"TotalImpuestos: {totalimpuestos}")
+                print(f"Total: {total}")
 
 
 
