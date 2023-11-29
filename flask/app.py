@@ -6,16 +6,11 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    api_response = None
     if request.method == 'POST':
-        
         fecha = request.form['fecha']
-
         # Convertir la fecha a formato Year-Month-Day
         date_components = fecha.split('-')
-        year = date_components[0]
-        month = date_components[1]
-        day = date_components[2]
+        year, month, day = date_components
         
         # Datos de conexión a la base de datos
         server = 'DESKTOP-N26HD66'
@@ -28,26 +23,27 @@ def index():
             cursor = conn.cursor()
 
             # Consulta SQL
-            cursor.execute(f"SELECT CODIGO, NOMBRE, fechacreacion FROM orden_compra where YEAR(fechacreacion)={year} and MONTH(fechacreacion)={month} and DAY(fechacreacion)={day}");
+            cursor.execute(f"SELECT CODIGO, NOMBRE, fechacreacion FROM orden_compra WHERE YEAR(fechacreacion)={year} AND MONTH(fechacreacion)={month} AND DAY(fechacreacion)={day}")
 
             # Obtener los resultados de la consulta
             rows = cursor.fetchall()
             api_response = [dict(zip([column[0] for column in cursor.description], row)) for row in rows]
 
-            for row in rows:
-                print(row)  # Puedes imprimir o procesar los resultados como desees
-
-        except Exception as e:
-            print(f"Se produjo un error: {e}")
-
-        finally:
             # Cerrar la conexión
             cursor.close()
             conn.close()
-    
-    return render_template('index.html', api_response=api_response)
+
+            # Redirigir a la página de resultados con los datos obtenidos
+            return render_template('resultados.html', api_response=api_response)
+
+        except Exception as e:
+            error_message = f"Se produjo un error: {e}"
+            return render_template('error.html', error_message=error_message)
+
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    webbrowser.open('http://127.0.0.1:5000')  # Abre el navegador al iniciar la aplicación
-    app.run(port=5000)  # Ejecuta la aplicación Flask en el puerto 5000
-
+    url = 'http://127.0.0.1:5000'
+    chrome_path = 'C:/Program Files/Google/Chrome/Application/chrome.exe %s'  # Ruta ejecutable de Chrome
+    webbrowser.get(chrome_path).open(url)  # Abre en Chrome
+    app.run(port=5000)

@@ -180,7 +180,7 @@ try:
                 
                 
                 print("pre")
-                sql = """INSERT INTO orden_compra
+                sql = """INSERT INTO probando_ordenescompra
                 (fechacreacion, codigo, nombre, codigoestado, codigolicitacion, descripcion, codigotipo, tipo, tipomoneda, codigoestadoproveedor, estadoproveedor, fechacreacionprov, fechaenvio, fechaaceptacion, fechacancelacion, fechaultimamodificacion, tieneitems, promediocalificacion, cantidadevaluacion, descuentos, cargos, totalneto, porcentajeiva, impuestos, total, financiamiento, pais, tipodespacho, formadepago, codigoorganismo, nombreorganismo, rutunidad, codigounidad, nombreunidad, actividad, direccionunidad, comunaunidad, regionunidad, pais_u, nombrecontacto, cargocontacto, fonocontacto, emailcontacto, codigoprov, nombreprov, actividadprov, codigosucursalprov, nombresucursalprov, rutsucursalprov, direccionsucursalprov, comunasucursalprov, regionsucursalprov, paissucursalprov, nombrecontactosucprov, cargocontactosucprov, telefonocontactosucprov, emailcontactosucprov, cantidaditems, correlativoitems, codigocategoriaitems, categoriaitem, codigoproducitem, especificcompitem, especificprovitem, cantidaditem, monedaitem, precionetoitem, totalcargositem, totaldescuentositem, totalimpuestositem, totalitem, condereg, fecha_actualizacion, hora_actualizacion)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?,?)"""
 #                 print(type(fecha_creacion))
