@@ -20,8 +20,8 @@ if response.status_code == 200:
             cursor = conn.cursor()
 
             # Paso 2: Vaciar la tabla antes de comenzar a insertar nuevos datos
-            cursor.execute("TRUNCATE TABLE apioc01")
-            print("Tabla vaciada.")
+            #cursor.execute("TRUNCATE TABLE apioc01")
+            #print("Tabla vaciada.")
 
             # Paso 3: Procesar las respuestas de la API
             for orden in lista_ordenes:
