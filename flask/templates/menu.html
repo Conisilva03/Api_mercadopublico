@@ -11,52 +11,6 @@
         <!-- Otros elementos del menú -->
     </ul>
 
-    <div id="mensaje"></div> <!-- Sección para mostrar mensajes -->
-
-    <script>
-        document.getElementById('rescatar_ordenes').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-            
-            // Código para ejecutar automáticamente al hacer clic en "Rescatar Órdenes de Compra"
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/ejecutar_rescate_ordenes', true);
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Mostrar mensaje de éxito
-                        document.getElementById('mensaje').innerHTML = '<p style="color: green;">¡Código ejecutado con éxito!</p>';
-                    } else {
-                        // Mostrar mensaje de error
-                        document.getElementById('mensaje').innerHTML = '<p style="color: red;">Error al ejecutar el código. Inténtalo de nuevo.</p>';
-                    }
-                }
-            };
-
-            xhr.send();
-        });
-
-        document.getElementById('obtener_ordenes_fecha').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-            
-            // Código para ejecutar automáticamente al hacer clic en "Obtener Órdenes de Compra por Fecha"
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/ejecutar_prueba_v3_y_redireccionar', true);
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Redirigir a index.html después de ejecutar prueba_v3.py
-                        window.location.href = 'index.html';
-                    } else {
-                        // Mostrar mensaje de error
-                        document.getElementById('mensaje').innerHTML = '<p style="color: red;">Error al ejecutar prueba_v3.py. Inténtalo de nuevo.</p>';
-                    }
-                }
-            };
-
-            xhr.send();
-        });
     </script>
 </body>
 </html>
