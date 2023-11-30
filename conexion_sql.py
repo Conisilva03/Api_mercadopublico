@@ -2,7 +2,8 @@ import requests
 import pyodbc
 from datetime import datetime
 
-server = 'DESKTOP-N26HD66'
+#server = 'DESKTOP-N26HD66'
+server = 'EstebanBLL\SQLEXPRESS'
 database = 'mercadop'
 connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes'
 api_key = "673FD54D-B2AB-4A6F-861E-DE76A79FF9EA"

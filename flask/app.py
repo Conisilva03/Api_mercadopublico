@@ -13,7 +13,8 @@ def index():
         year, month, day = date_components
         
         # Datos de conexión a la base de datos
-        server = 'DESKTOP-N26HD66'
+        #server = 'DESKTOP-N26HD66'
+        server = 'EstebanBLL\SQLEXPRESS'
         database = 'mercadop'
         connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
 
