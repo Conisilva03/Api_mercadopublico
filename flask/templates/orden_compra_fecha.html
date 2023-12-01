@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Fechas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         /* Estilos del primer código */
         body {
@@ -72,30 +71,6 @@
         <input type="submit" value="Enviar Fecha">
     </form>
 
-    {% if api_response %}
-        <table border="1">
-            <thead>
-                <tr>
-                    {% for key, value in api_response[0].items() %}
-                        <th>{{ key }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in api_response %}
-                    <tr>
-                        {% for key, value in row.items() %}
-                            <td>{{ value }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Datos no disponibles</p>
-    {% endif %}
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>

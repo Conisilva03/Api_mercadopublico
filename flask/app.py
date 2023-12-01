@@ -1,7 +1,8 @@
-from flask import jsonify
-from flask import Flask, render_template, request
+from flask import jsonify, render_template, redirect ,url_for
+from flask import Flask, request
 import pyodbc
 import webbrowser
+import subprocess
 
 app = Flask(__name__)
 
@@ -47,15 +48,32 @@ def index():
 # Nueva ruta para manejar la solicitud de rescatar_ordenes
 @app.route('/rescatar_ordenes', methods=['GET'])
 def rescatar_ordenes():
-    # Puedes agregar cualquier lógica adicional aquí antes de ejecutar el script
-    # ...
-
-    # Ejecutar el script conexion_sql.py
     import subprocess
     subprocess.run(["python", "conexion_sql.py"])
 
-    # Puedes devolver algún mensaje si es necesario
-    return jsonify({"message": "Se cargo la data obtenida en la Base de datos."})
+    return jsonify({"message": "Se cargaron las ordenes de compra en la Base de datos."})
+
+# Nueva ruta para manejar la solicitud de obtener_ordenes_fecha
+@app.route('/obtener_ordenes_fecha', methods=['GET'])
+def obtener_ordenes_fecha():
+    try:
+        subprocess.run(["python", "orden_compra_fecha.py"])
+    
+        #return render_template('orden_compra_fecha.html', api_response=example_api_response)
+        #return redirect(url_for('orden_compra_fecha'))
+        
+        return jsonify({"message": "Se cargaron las órdenes de compra en la Base de datos."})
+    
+    except Exception as e:
+        # Mensaje de error en caso de excepción durante la ejecución del script
+        print(f"Error en obtener_ordenes_fecha: {str(e)}")
+        return render_template('error.html', error_message=f"Error: {str(e)}. No se cargaron las ordenes de compra por fecha correctamente."), 500
+
+# Nueva ruta para manejar la plantilla orden_compra_fecha.html
+@app.route('/orden_compra_fecha', methods=['GET'])
+def orden_compra_fecha():
+    # Puedes agregar lógica adicional aquí si es necesario
+    return render_template('orden_compra_fecha.html')
 
 if __name__ == '__main__':
     url = 'http://127.0.0.1:5000'

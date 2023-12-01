@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Fechas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Estilos del primer código */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box; /* Ajusta el tamaño del input para incluir el borde */
+            background-color: #ffffff; /* Fondo blanco */
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s; /* Transición de color al pasar el mouse */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Color de fondo al pasar el mouse */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Fechas órdenes de compra - Mercado público</h1>
+    <br>
+    <form method="post">
+        <label for="datePicker">Selecciona una fecha:</label>
+        <input type="date" id="datePicker" name="fecha" required>
+        <input type="submit" value="Enviar Fecha">
+    </form>
+
+    {% if api_response %}
+    <table border="1">
+        <thead>
+            <tr>
+                {% for key, value in api_response[0].items() %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in api_response %}
+                <tr>
+                    {% for key, value in row.items() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Datos no disponibles</p>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Verificar si api_response es un objeto válido antes de intentar procesarlo
+        if (api_response && Array.isArray(api_response)) {
+            // Renderizar la tabla si hay datos disponibles
+            if (api_response.length > 0) {
+                document.write('<table border="1">');
+                document.write('<thead><tr>');
+                // Crear encabezados de tabla basados en las claves del primer elemento
+                Object.keys(api_response[0]).forEach(function(key) {
+                    document.write('<th>' + key + '</th>');
+                });
+                document.write('</tr></thead><tbody>');
+                // Crear filas de tabla basadas en los datos
+                api_response.forEach(function(row) {
+                    document.write('<tr>');
+                    Object.values(row).forEach(function(value) {
+                        document.write('<td>' + value + '</td>');
+                    });
+                    document.write('</tr>');
+                });
+                document.write('</tbody></table>');
+            } else {
+                // Mostrar un mensaje si no hay datos disponibles
+                document.write('<p>Datos no disponibles</p>');
+            }
+        } else {
+            // Mostrar un mensaje de error si api_response no es válido
+            document.write('<p>Error al procesar la respuesta</p>');
+        }
+    </script>
+</body>
+
+</html>

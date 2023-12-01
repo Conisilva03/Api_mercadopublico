@@ -19,22 +19,49 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Agregar un evento de clic al enlace con id "rescatar_ordenes"
             document.getElementById("rescatar_ordenes").addEventListener("click", function() {
+                mostrarMensaje("Se está procesando información 'Órdenes de compra', por favor espere...");
                 // Realizar una solicitud al servidor cuando se haga clic
                 console.log("Clic en rescatar_ordenes");
-                fetch('/rescatar_ordenes', {
-                    method: 'GET'  // Puedes ajustar el método según sea necesario
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);  // Puedes hacer algo con la respuesta del servidor si es necesario
-                    // Mostrar mensaje de éxito o error
-                    mostrarMensaje(data.message);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Mostrar mensaje de error
-                    mostrarMensaje("Se produjo un error al ejecutar la acción.", true);
-                });
+            
+                setTimeout(function () {
+                    fetch('/rescatar_ordenes', {
+                        method: 'GET'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        mostrarMensaje(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        mostrarMensaje("Se produjo un error al ejecutar la acción.", true);
+                    });
+                }, 5000);
+            });
+
+            document.getElementById("obtener_ordenes_fecha").addEventListener("click", function() {
+                mostrarMensaje("Se está procesando información 'Órdenes de compra por fecha', por favor espere...");
+                console.log("Clic en obtener_ordenes_fecha");
+                
+                setTimeout(function () {
+                    fetch('/obtener_ordenes_fecha', {
+                        method: 'GET'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        mostrarMensaje(data.message);
+            
+                        // Redirigir a la página orden_compra_fecha si la respuesta es exitosa
+                        if (!data.error) {
+                            window.location.href = '/orden_compra_fecha';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        mostrarMensaje(`Se produjo un error al ejecutar la acción: ${error.message}`, true);
+                    });
+                }, 500000);
             });
 
             // Función para mostrar mensajes en el elemento div
@@ -46,7 +73,7 @@
                 // Ocultar el mensaje después de unos segundos (ajusta según tus necesidades)
                 setTimeout(() => {
                     elementoMensaje.textContent = "";
-                }, 5000); // 5000 milisegundos = 5 segundos
+                }, 100000); // 5000 milisegundos = 5 segundos
             }
         });
     </script>
