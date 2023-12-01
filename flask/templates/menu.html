@@ -11,6 +11,44 @@
         <!-- Otros elementos del menú -->
     </ul>
 
+    <!-- Agregar un elemento div para mostrar mensajes -->
+    <div id="mensaje"></div>
+
+    <script>
+        // Envolver el script en el evento DOMContentLoaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Agregar un evento de clic al enlace con id "rescatar_ordenes"
+            document.getElementById("rescatar_ordenes").addEventListener("click", function() {
+                // Realizar una solicitud al servidor cuando se haga clic
+                console.log("Clic en rescatar_ordenes");
+                fetch('/rescatar_ordenes', {
+                    method: 'GET'  // Puedes ajustar el método según sea necesario
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);  // Puedes hacer algo con la respuesta del servidor si es necesario
+                    // Mostrar mensaje de éxito o error
+                    mostrarMensaje(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Mostrar mensaje de error
+                    mostrarMensaje("Se produjo un error al ejecutar la acción.", true);
+                });
+            });
+
+            // Función para mostrar mensajes en el elemento div
+            function mostrarMensaje(mensaje, esError = false) {
+                const elementoMensaje = document.getElementById("mensaje");
+                elementoMensaje.textContent = mensaje;
+                elementoMensaje.style.color = esError ? "red" : "green";
+
+                // Ocultar el mensaje después de unos segundos (ajusta según tus necesidades)
+                setTimeout(() => {
+                    elementoMensaje.textContent = "";
+                }, 5000); // 5000 milisegundos = 5 segundos
+            }
+        });
     </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask import Flask, render_template, request
 import pyodbc
 import webbrowser
@@ -41,7 +42,20 @@ def index():
             error_message = f"Se produjo un error: {e}"
             return render_template('error.html', error_message=error_message)
 
-    return render_template('index.html')
+    return render_template('menu.html')
+
+# Nueva ruta para manejar la solicitud de rescatar_ordenes
+@app.route('/rescatar_ordenes', methods=['GET'])
+def rescatar_ordenes():
+    # Puedes agregar cualquier lógica adicional aquí antes de ejecutar el script
+    # ...
+
+    # Ejecutar el script conexion_sql.py
+    import subprocess
+    subprocess.run(["python", "conexion_sql.py"])
+
+    # Puedes devolver algún mensaje si es necesario
+    return jsonify({"message": "Se cargo la data obtenida en la Base de datos."})
 
 if __name__ == '__main__':
     url = 'http://127.0.0.1:5000'
